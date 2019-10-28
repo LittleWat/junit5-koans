@@ -1,19 +1,19 @@
 package org.codecop;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.stream.Stream;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Session 5b: WordCounterRatioTest - (experimental) parameterised/table driven tests. <br />
- * @see "https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests"
  *
  * @author Daniel Mühlbachler
+ * @see "https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests"
  */
 class Session5b_WordCounterRatioTest {
 
@@ -36,6 +36,8 @@ class Session5b_WordCounterRatioTest {
 
     // TODO mark this test as parameterised
     // TODO tell it to take arguments from "getTestCases"
+    @ParameterizedTest
+    @MethodSource("getTestCases")
     void shouldReturnRatioOfGivenWord(String sentence, String word, double expectedRatio) {
         WordCounter counter = new WordCounter(sentence);
         assertEquals(expectedRatio, counter.ratioOf(word), 0.01);

@@ -1,18 +1,18 @@
 package org.codecop;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Session 5: WordCounterRatioTest - Dynamic/table driven tests. <br />
+ *
  * @see "http://junit.org/junit5/docs/current/user-guide/#writing-tests-dynamic-tests"
  */
 class Session5_WordCounterRatioTest {
@@ -50,14 +50,18 @@ class Session5_WordCounterRatioTest {
 
         void shouldReturnRatioOfGivenWord() {
             WordCounter counter = new WordCounter(sentence);
-            assertEquals(expectedRatio, counter.ratioOf(word), 0.01); 
+            assertEquals(expectedRatio, counter.ratioOf(word), 0.01);
         }
     }
 
     // TODO Test factory will create a sequence of tests.
+    @TestFactory
     List<DynamicTest> createTests() {
         // TODO Take data from TEST_CASES field and convert it to list of DynamicTests.
-        return Collections.<DynamicTest>emptyList().stream(). //
-               collect(Collectors.toList());
+        return TEST_CASES.stream()
+                .map(testCase ->
+                        DynamicTest.dynamicTest(testCase.name(), testCase::shouldReturnRatioOfGivenWord)
+                )
+                .collect(Collectors.toList());
     }
 }

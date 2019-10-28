@@ -10,6 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Parameter;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -36,6 +37,7 @@ class Session6_TempFile implements BeforeEachCallback, ParameterResolver, AfterE
     public void beforeEach(ExtensionContext context) throws IOException {
         Object testInstance = context.getTestInstance();
         // TODO create a temporary file before each test
+        createTempFileFor(testInstance);
     }
 
     @Override
@@ -50,12 +52,13 @@ class Session6_TempFile implements BeforeEachCallback, ParameterResolver, AfterE
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext context) throws ParameterResolutionException {
         // TODO return the temporary file  whenever a test method parameter has been resolved to use it.
-        return null;
+        return getTempFile();
     }
 
     @Override
     public void afterEach(ExtensionContext context) {
         // TODO remove the temporary file after each test
+        removeTempFile();
     }
     
     // --- actual temporary file logic
